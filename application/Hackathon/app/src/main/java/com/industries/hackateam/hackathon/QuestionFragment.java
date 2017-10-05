@@ -27,6 +27,9 @@ public class QuestionFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(getContext(), QuestionValidateStudentActivity.class);
+                startActivity(intent);
+
             }
         });
 
