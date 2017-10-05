@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.industries.hackateam.hackathon.QuestionActivity">
+    tools:context="com.industries.hackateam.hackathon.QuestionValidateStudentActivity">
+
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/appBarLayout"
+        android:id="@+id/toolBar"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="?attr/colorPrimary"
@@ -23,7 +24,7 @@
 
 
     <include
-        layout="@layout/content_question"
+        layout="@layout/content_question_validate_student"
         android:layout_height="0dp"
         android:layout_width="0dp"
         tools:layout_constraintTop_creator="1"
@@ -31,33 +32,29 @@
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/toolBar"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/include" />
+        android:id="@+id/include3" />
 
     <TextView
-        android:id="@+id/responseText"
-        android:layout_width="366dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:id="@+id/questionText"
+        android:layout_width="369dp"
+        android:layout_height="69dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        app:layout_constraintRight_toRightOf="@+id/include"
-        app:layout_constraintTop_toTopOf="@+id/include" />
+        app:layout_constraintLeft_toLeftOf="@+id/include3"
+        app:layout_constraintTop_toTopOf="@+id/include3"
+        android:layout_marginStart="8dp" />
 
     <ListView
         android:id="@+id/listResponse"
         android:layout_width="369dp"
-        android:layout_height="388dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="420dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="-56dp"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
-        app:layout_constraintLeft_toLeftOf="@+id/include"
-        app:layout_constraintRight_toRightOf="@+id/include"
-        app:layout_constraintTop_toBottomOf="@+id/responseText" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/include3"
+        app:layout_constraintTop_toBottomOf="@+id/questionText" />
 
 </android.support.constraint.ConstraintLayout>

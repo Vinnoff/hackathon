@@ -22,4 +22,8 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_question">QuestionActivity</string>
     <string name="title_activity_pop_new_question">NewQuestionPop</string>
+    <string name="title_activity_question_validate_teacher">QuestionValidateTeacherActivity</string>
+    <string name="title_activity_question_validate_student">QuestionValidateStudentActivity</string>
+    <string name="title_activity_question_no_validate_student">QuestionNoValidateStudentActivity
+    </string>
 </resources>
