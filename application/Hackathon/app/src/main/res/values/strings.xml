@@ -20,6 +20,5 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_day_lesson">DayLessonActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_shitty">shittyActivity</string>
-    <string name="title_activity_blabla">Blabla</string>
+    <string name="title_activity_question">QuestionActivity</string>
 </resources>
