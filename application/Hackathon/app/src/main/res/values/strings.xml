@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hackathon</string>
+    <string name="app_name">Dr. Question</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
