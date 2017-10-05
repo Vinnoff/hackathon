@@ -24,6 +24,7 @@ public class QuestionNoValidateStudentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         this.setTitle("Question Non Validée");
+
         TextView questionTexte = (TextView) this.findViewById(R.id.questionText);
         questionTexte.setText("Qui est Monsieur Maul ?");
         ListView listRes = (ListView) this.findViewById(R.id.listResponse);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hackathon</string>
+    <string name="app_name">Dr. Question</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -25,4 +25,5 @@
     <string name="title_activity_question_validate_student">QuestionValidateStudentActivity</string>
     <string name="title_activity_question_no_validate_student">QuestionNoValidateStudentActivity</string>
     <string name="title_activity_pop_new_question">NewQuestionPop</string>
+
 </resources>
