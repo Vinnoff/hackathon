@@ -8,13 +8,11 @@ import io.realm.annotations.PrimaryKey;
  * Created by vincent on 05/10/2017.
  */
 
-public class Person extends RealmObject {
+public class Subject extends RealmObject {
     @PrimaryKey
     private long id;
-    private String lastname;
-    private String firstname;
-    private String mail;
-    private String password;
-    private boolean isProf;
-    private RealmList<Subject> subjects;
+    private String date;
+    private String promotion;
+    private String subjectName;
+    private RealmList<Person> persons;
 }
