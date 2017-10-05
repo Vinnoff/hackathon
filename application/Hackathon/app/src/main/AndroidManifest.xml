@@ -45,6 +45,10 @@
             android:name=".QuestionNoValidateStudentActivity"
             android:label="@string/title_activity_question_no_validate_student"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".NewQuestionPop"
+            android:label="@string/title_activity_pop_new_question"
+            android:theme="@style/AppTheme.TranslucidTheme"/>
     </application>
 
 </manifest>
