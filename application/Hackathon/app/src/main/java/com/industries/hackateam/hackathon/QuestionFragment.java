@@ -72,27 +72,26 @@ public class QuestionFragment extends Fragment{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
-                View popView = getActivity().getLayoutInflater().inflate(R.layout.pop_new_question, null);
-                final EditText question = (EditText) popView.findViewById(R.id.question);
-                Button submitButton = (Button) popView.findViewById(R.id.submit) ;
+            AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+            View popView = getActivity().getLayoutInflater().inflate(R.layout.pop_new_question, null);
+            final EditText question = (EditText) popView.findViewById(R.id.question);
+            Button submitButton = (Button) popView.findViewById(R.id.submit) ;
 
+            adb.setView(popView);
+            final AlertDialog dialog = adb.create();
+            dialog.show();
 
-                adb.setView(popView);
-                final AlertDialog dialog = adb.create();
-                dialog.show();
-
-                submitButton.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        if(question.length() <= 10){
-                            Toast.makeText(getActivity(),"Question non valide",Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity(),"Question envoyée !",Toast.LENGTH_SHORT).show();
-                            dialog.hide();
-                        }
-                    }
-                });
+            submitButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                if(question.length() <= 10){
+                    Toast.makeText(getActivity(),"Question non valide",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(),"Question envoyée !",Toast.LENGTH_SHORT).show();
+                    dialog.hide();
+                }
+                }
+            });
             }
         });
 
