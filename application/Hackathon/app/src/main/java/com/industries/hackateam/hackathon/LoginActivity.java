@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError("Mot de passe trop court");
             focusView = mPasswordView;
             cancel = true;
         }
@@ -180,6 +180,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             cancel = true;
         } else if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+        else if (TextUtils.isEmpty(password))
+        {
+            mEmailView.setError("Mot de passe incorrect");
             focusView = mEmailView;
             cancel = true;
         }

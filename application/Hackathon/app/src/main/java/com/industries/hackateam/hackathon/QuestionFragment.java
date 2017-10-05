@@ -64,7 +64,6 @@ public class QuestionFragment extends Fragment{
                     if(true/*close*/){
                         //Si la personne est élève et question est fermée
                         intent = new Intent(getContext(), QuestionValidateStudentActivity.class);
-
                     } else {
                         //Si la personne est prof et question est ouverte
                         intent = new Intent(getContext(), QuestionNoValidateStudentActivity.class);
@@ -82,6 +81,7 @@ public class QuestionFragment extends Fragment{
             View popView = getActivity().getLayoutInflater().inflate(R.layout.pop_new_question, null);
             final EditText question = (EditText) popView.findViewById(R.id.question);
             Button submitButton = (Button) popView.findViewById(R.id.submit) ;
+
 
             adb.setView(popView);
             final AlertDialog dialog = adb.create();

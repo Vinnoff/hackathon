@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.industries.hackateam.hackathon.adapter.AdapterValidateTeacher;
 
-//Question Activity for the Teacher
+//Questions Activity for the Teacher
 public class QuestionActivity extends AppCompatActivity {
 
     @Override
@@ -18,9 +18,9 @@ public class QuestionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.appBarLayout);
         setSupportActionBar(toolbar);
 
-        this.setTitle("Question");
+        this.setTitle("Questions");
         TextView questionText = (TextView) this.findViewById(R.id.responseText);
-        questionText.setText("Question: Qui est Obi-Wan");
+        questionText.setText("Questions: Qui est Obi-Wan");
         ListView listResponse = (ListView) this.findViewById(R.id.listResponse);
         String[] listValue = new String[] { "R1", "R2", "R3" };
 
