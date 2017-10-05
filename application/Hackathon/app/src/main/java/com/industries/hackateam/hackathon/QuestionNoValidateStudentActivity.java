@@ -1,5 +1,6 @@
 package com.industries.hackateam.hackathon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,9 @@ public class QuestionNoValidateStudentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+
         setContentView(R.layout.activity_question_no_validate_student);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -26,7 +30,7 @@ public class QuestionNoValidateStudentActivity extends AppCompatActivity {
         this.setTitle("Question Non Validée");
 
         TextView questionTexte = (TextView) this.findViewById(R.id.questionText);
-        questionTexte.setText("Qui est Monsieur Maul ?");
+        questionTexte.setText(intent.getStringExtra("question"));
         ListView listRes = (ListView) this.findViewById(R.id.listResponse);
         String[] listValue = new String[] {"Reponse etudiant 1", "Reponse etudiant 2"};
 

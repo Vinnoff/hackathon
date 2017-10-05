@@ -185,7 +185,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         else if (TextUtils.isEmpty(password))
         {
-            mEmailView.setError("Mot de passe incorrect");
+            mPasswordView.setError("Mot de passe incorrect");
             focusView = mEmailView;
             cancel = true;
         }
