@@ -37,8 +37,6 @@ public class DayLessonActivity extends AppCompatActivity {
         Intent intent = getIntent();
         title = (TextView) findViewById(R.id.title);
 
-        Log.i("Intent", intent.getStringExtra("title"));
-
         title.setText(intent.getStringExtra("title"));
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 

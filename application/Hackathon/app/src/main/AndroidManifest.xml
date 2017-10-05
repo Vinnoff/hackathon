@@ -29,10 +29,7 @@
             android:name=".DayLessonActivity"
             android:label="@string/title_activity_day_lesson"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".shittyActivity"
-            android:label="@string/title_activity_shitty"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".QuestionActivity" />
     </application>
 
 </manifest>
