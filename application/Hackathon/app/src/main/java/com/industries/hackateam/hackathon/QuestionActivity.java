@@ -1,5 +1,6 @@
 package com.industries.hackateam.hackathon;
 
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,5 +30,4 @@ public class QuestionActivity extends AppCompatActivity {
 
 
     }
-
 }
