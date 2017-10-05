@@ -7,15 +7,21 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by vincent on 04/10/2017.
@@ -29,7 +35,7 @@ public class QuestionFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.questions_fragment, container, false);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        ListView listView = (ListView) view.findViewById(R.id.listView);
+        final ListView listView = (ListView) view.findViewById(R.id.listView);
 
         String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
                 "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
@@ -38,7 +44,7 @@ public class QuestionFragment extends Fragment{
                 "Android", "iPhone", "WindowsMobile" };
 
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, values);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, new ArrayList<>(Arrays.asList(values)));
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,17 +90,20 @@ public class QuestionFragment extends Fragment{
             submitButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                if(question.length() <= 10){
-                    Toast.makeText(getActivity(),"Question non valide",Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(),"Question envoyée !",Toast.LENGTH_SHORT).show();
-                    dialog.hide();
-                }
+                    if(question.length() <= 10){
+                        Toast.makeText(getActivity(),"Question non valide",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.i("LOLILOL",question.getText().toString());
+                        Log.i("adapter",adapter.getItem(0));
+                        adapter.setNotifyOnChange(true);
+                        adapter.add(question.getText().toString());
+                        Toast.makeText(getActivity(),"Question envoyée !",Toast.LENGTH_SHORT).show();
+                        dialog.hide();
+                    }
                 }
             });
             }
         });
-
         return view;
     }
 }

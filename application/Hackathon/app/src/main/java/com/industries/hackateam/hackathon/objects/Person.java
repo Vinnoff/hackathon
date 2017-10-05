@@ -14,7 +14,5 @@ public class Person extends RealmObject {
     private String lastname;
     private String firstname;
     private String mail;
-    private String password;
     private boolean isProf;
-    private RealmList<Subject> subjects;
 }

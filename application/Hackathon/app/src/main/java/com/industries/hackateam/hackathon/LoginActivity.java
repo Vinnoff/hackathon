@@ -33,6 +33,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -65,6 +67,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Realm.init(getApplicationContext());
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
