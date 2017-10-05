@@ -3,12 +3,16 @@ package com.industries.hackateam.hackathon;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuestionNoValidateStudentActivity extends AppCompatActivity {
 
@@ -31,8 +35,28 @@ public class QuestionNoValidateStudentActivity extends AppCompatActivity {
         buttonAddReponse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                AlertDialog.Builder adb = new AlertDialog.Builder(QuestionNoValidateStudentActivity.this);
+                View popView = getLayoutInflater().inflate(R.layout.pop_new_question, null);
+                final EditText question = (EditText) popView.findViewById(R.id.question);
+                Button submitButton = (Button) popView.findViewById(R.id.submit) ;
+
+
+                adb.setView(popView);
+                final AlertDialog dialog = adb.create();
+                dialog.show();
+
+                submitButton.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        if(question.length() <= 10){
+                            Toast.makeText(QuestionNoValidateStudentActivity.this,"Question non valide",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(QuestionNoValidateStudentActivity.this,"Question envoyée !",Toast.LENGTH_SHORT).show();
+                            dialog.hide();
+                        }
+                    }
+                });
             }
         });
     }

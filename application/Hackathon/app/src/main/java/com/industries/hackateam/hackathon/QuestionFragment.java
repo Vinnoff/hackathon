@@ -50,6 +50,7 @@ public class QuestionFragment extends Fragment{
                             Toast.makeText(getActivity(),"Question envoyée !",Toast.LENGTH_SHORT).show();
                             dialog.hide();
                         }
+
                     }
                 });
             }
