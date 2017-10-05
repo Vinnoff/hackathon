@@ -29,7 +29,8 @@ public class LessonActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(LessonActivity.this, DayLessonActivity.class);
                 String dayTitleSecond = listView.getItemAtPosition(position).toString();
-                intent.putExtra("title",(dayTitleOne + dayTitleSecond));
+                String dayTitle = dayTitleOne + dayTitleSecond;
+                intent.putExtra("title", dayTitle);
                 startActivity(intent);
             }
         });
