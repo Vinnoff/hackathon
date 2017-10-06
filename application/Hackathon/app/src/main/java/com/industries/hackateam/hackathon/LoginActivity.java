@@ -31,6 +31,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -225,14 +226,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         showProgress(false);
                         finish();
                         startActivity(new Intent(LoginActivity.this, SubjectsActivity.class));
+                    } else if (response.code() == 204){
+                        showProgress(false);
+                        Toast.makeText(LoginActivity.this, "Identifiants invalides", Toast.LENGTH_LONG).show();
+                    } else {
+                        showProgress(false);
+                        Toast.makeText(LoginActivity.this, "Un problème est survenu", Toast.LENGTH_LONG).show();
                     }
-                    showProgress(false);
+
                 }
 
                 @Override
                 public void onFailure(Call<User[]> call, Throwable t) {
                     Log.i("ttt", "Fail = "+t.toString());
                     showProgress(false);
+                    Toast.makeText(LoginActivity.this, "Problème de serveur",Toast.LENGTH_LONG).show();
                 }
             });
         }
