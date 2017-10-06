@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,7 +46,7 @@ public class LessonActivity extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.listView);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        if(false/*isPasProf*/){
+        if (false/*isPasProf*/) {
             fab.hide();
         }
 
@@ -60,7 +61,7 @@ public class LessonActivity extends AppCompatActivity {
         int idMatiere;
         try {
             idMatiere = Integer.parseInt(intent.getStringExtra("idmatiere"));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             idMatiere = -1;
         }
 
@@ -71,14 +72,12 @@ public class LessonActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Cours[]> call, final Response<Cours[]> response) {
                 if (response.code() == 200) {
-                    Log.i("ttt", "Res = "+response.body()[0].toString());
+                    Log.i("ttt", "Res = " + response.body()[0].toString());
 
                     String[] values = getTitleFromCours(response);
-
-
-
-
                     final ArrayAdapter<String> adapter = new ArrayAdapter<String>(LessonActivity.this, android.R.layout.simple_list_item_1, new ArrayList<>(Arrays.asList(values)));
+
+
                     listView.setAdapter(adapter);
 
 
@@ -129,53 +128,44 @@ public class LessonActivity extends AppCompatActivity {
                                 }
                             });
 
-                            String date = new SimpleDateFormat("dd/MM/yy").format(Calendar.getInstance().getTime());
+
+
+                            final String date = new SimpleDateFormat("dd/MM/yy").format(Calendar.getInstance().getTime());
                             boolean exist = false;
-                            for(int i = 0; i<adapter.getCount();i++){
-                                if(adapter.getItem(i).toString().equals(date)){
+                            for (int i = 0; i < adapter.getCount(); i++) {
+                                if (adapter.getItem(i).toString().equals(date)) {
                                     exist = true;
                                     break;
                                 }
                             }
-                            if (!exist){
-                                adapter.setNotifyOnChange(true);
-                                adapter.add(date);
-                                Toast.makeText(LessonActivity.this, "Cours ajouté", Toast.LENGTH_SHORT).show();
 
-                            } else {
-                                Toast.makeText(LessonActivity.this, "Le cours existe déjà !", Toast.LENGTH_LONG).show();
-                            }
                         }
                     });
 
                     //startActivity(new Intent(LessonActivity.this, DayLessonActivity.class));
 
-                } else if (response.code() == 204){
-                    Toast.makeText(LessonActivity.this, "Aucune leçon n'est disponible pour cette matiere", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(LessonActivity.this, "Un problème est survenu", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 204) {
+
                 }
+
 
             }
 
             @Override
             public void onFailure(Call<Cours[]> call, Throwable t) {
-                Log.i("ttt", "Fail = "+t.toString());
-                Toast.makeText(LessonActivity.this, "Problème de serveur",Toast.LENGTH_LONG).show();
+                Log.i("ttt", "Fail = " + t.toString());
+                Toast.makeText(LessonActivity.this, "Problème de serveur", Toast.LENGTH_LONG).show();
             }
+
         });
-
-
 
 
     }
 
-    public String[] getTitleFromCours(Response<Cours[]> response)
-    {
+    public String[] getTitleFromCours(Response<Cours[]> response) {
         String[] values = new String[response.body().length];
         int index = 0;
-        for ( Cours c : response.body())
-        {
+        for (Cours c : response.body()) {
             values[index] = c.Titre;
             index++;
         }

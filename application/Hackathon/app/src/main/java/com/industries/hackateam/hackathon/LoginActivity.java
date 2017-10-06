@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
 import com.industries.hackateam.hackathon.modele.User;
+import com.industries.hackateam.hackathon.objects.Person;
 
 import android.content.CursorLoader;
 import android.content.Loader;
@@ -33,11 +34,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.security.acl.Owner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,38 +81,51 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Realm.init(getApplicationContext());
-
-
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+        Realm.init(this);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name("myrealm.realm")
+                .build();
+
+        Realm.setDefaultConfiguration(config);
+        Realm realm = Realm.getDefaultInstance();
+        final RealmResults<Person> persons = realm.where(Person.class).findAll();
+        if(persons.size() == 1){
+            startActivity(new Intent(LoginActivity.this, SubjectsActivity.class));
+            finish();
+        } else {
+            setContentView(R.layout.activity_login);
+            // Set up the login form.
+            mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+            populateAutoComplete();
+
+            mPasswordView = (EditText) findViewById(R.id.password);
+            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                        attemptLogin();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+            Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+            mEmailSignInButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    attemptLogin();
+                }
+            });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+            mLoginFormView = findViewById(R.id.login_form);
+            mProgressView = findViewById(R.id.login_progress);
+        }
+        realm.close();
+
     }
 
     private void populateAutoComplete() {
@@ -222,11 +239,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 @Override
                 public void onResponse(Call<User[]> call, Response<User[]> response) {
                     if (response.code() == 200) {
-                        Log.i("ttt", "Res = "+response.body()[0].toString());
+                        User userResponse = response.body()[0];
+                        Log.i("ttt", "Res = "+userResponse.toString());
                         showProgress(false);
                         finish();
-                        startActivity(new Intent(LoginActivity.this, SubjectsActivity.class));
-                        
+
+                        //TODO : REALM STOCKAGE
+
+                        Person user = new Person(
+                                (long) userResponse.idPersonne,
+                                userResponse.Nom,
+                                userResponse.Prenom,
+                                userResponse.Mail,
+                                !userResponse.IsTeacher.equals("0")
+                                );
+                        Realm realm = Realm.getDefaultInstance();
+                        realm.beginTransaction();
+                        Person realmUser = realm.copyToRealm(user);
+                        realm.commitTransaction();
+                        realm.close();
+                        Intent intent = new Intent(LoginActivity.this, SubjectsActivity.class);
+                        startActivity(intent);
+
                     } else if (response.code() == 204){
                         showProgress(false);
                         Toast.makeText(LoginActivity.this, "Identifiants invalides", Toast.LENGTH_LONG).show();
