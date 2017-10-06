@@ -21,7 +21,7 @@ import retrofit2.http.Path;
  */
 
 public interface ApiPerso {
-    public static final String ENDPOINT = "http://mocnodeserv.hopto.org:80";
+    public static final String ENDPOINT = "@string/server_url";
 
     @POST("/users/exist")
     Call<User[]> getUser(@Body Map user);

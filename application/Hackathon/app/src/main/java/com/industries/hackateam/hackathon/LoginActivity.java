@@ -207,7 +207,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://mocnodeserv.hopto.org:80")
+                    .baseUrl(getString(R.string.server_url))
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
@@ -226,6 +226,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         showProgress(false);
                         finish();
                         startActivity(new Intent(LoginActivity.this, SubjectsActivity.class));
+                        
                     } else if (response.code() == 204){
                         showProgress(false);
                         Toast.makeText(LoginActivity.this, "Identifiants invalides", Toast.LENGTH_LONG).show();
