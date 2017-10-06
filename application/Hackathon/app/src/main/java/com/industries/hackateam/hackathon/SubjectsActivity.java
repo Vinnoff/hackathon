@@ -16,7 +16,7 @@ public class SubjectsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subjects2);
-
+        setTitle("Matières");
 
 
         final ListView listView = (ListView) findViewById(R.id.listView);
@@ -25,7 +25,6 @@ public class SubjectsActivity extends AppCompatActivity {
                 "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
                 "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
                 "Android", "iPhone", "WindowsMobile" };
-
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(SubjectsActivity.this, android.R.layout.simple_list_item_1, values);
         listView.setAdapter(adapter);
