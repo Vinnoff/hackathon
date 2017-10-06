@@ -36,6 +36,10 @@ public class DayLessonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_day_lesson);
         Intent intent = getIntent();
         title = (TextView) findViewById(R.id.title);
+        //intent.putExtra("idcours", intent.getStringExtra("idmatiere"));
+
+
+
 
         title.setText(intent.getStringExtra("title"));
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
@@ -49,8 +53,23 @@ public class DayLessonActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new DescriptionFragment(), "Description");
-        adapter.addFragment(new QuestionFragment(), "Questions");
+        DescriptionFragment descripFrag = new DescriptionFragment();
+        QuestionFragment questFrag = new QuestionFragment();
+
+
+        int idCoursInt;
+        try {
+            idCoursInt = Integer.parseInt(getIntent().getStringExtra("idcours"));
+        } catch(NumberFormatException e) {
+            idCoursInt = -1;
+        }
+        Bundle bundle = new Bundle();
+        bundle.putInt("idcours", idCoursInt);
+        questFrag.setArguments(bundle);
+        descripFrag.setArguments(bundle);
+
+        adapter.addFragment(descripFrag, "Description");
+        adapter.addFragment(questFrag, "Questions");
         viewPager.setAdapter(adapter);
     }
 }

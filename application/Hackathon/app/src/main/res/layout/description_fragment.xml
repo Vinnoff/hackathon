@@ -14,25 +14,10 @@
         android:textColor="@color/white"
         android:textStyle="bold" />
 
-    <ListView
-        android:id="@+id/notions_listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <TextView
-        android:id="@+id/attached_textView"
+        android:id="@+id/descriptionText"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:text="Attachés"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
-
-    <ListView
-        android:id="@+id/attached_listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
 </LinearLayout>

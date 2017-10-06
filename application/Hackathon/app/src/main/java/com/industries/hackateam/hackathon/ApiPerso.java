@@ -62,6 +62,7 @@ public interface ApiPerso {
     @DELETE("/reponse/del/{id}")
     Call<Question[]> deleteReponse(@Path("id") int id);
 
-
+    @GET("/cours/{id}")
+    Call<Cours[]> getCoursById(@Path("id") int id);
 
 }

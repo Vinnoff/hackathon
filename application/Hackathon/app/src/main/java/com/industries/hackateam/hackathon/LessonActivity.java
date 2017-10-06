@@ -69,14 +69,11 @@ public class LessonActivity extends AppCompatActivity {
 
         listCours.enqueue(new Callback<Cours[]>() {
             @Override
-            public void onResponse(Call<Cours[]> call, Response<Cours[]> response) {
+            public void onResponse(Call<Cours[]> call, final Response<Cours[]> response) {
                 if (response.code() == 200) {
                     Log.i("ttt", "Res = "+response.body()[0].toString());
 
-                    //String[] values = new String[] { "17/04/12" , "18/04/12" , "19/04/12" , "20/04/12" , "21/04/12" };
-
                     String[] values = getTitleFromCours(response);
-
 
 
 
@@ -92,6 +89,8 @@ public class LessonActivity extends AppCompatActivity {
                             String dayTitleSecond = listView.getItemAtPosition(position).toString();
                             String dayTitle = dayTitleOne + dayTitleSecond;
                             intent.putExtra("title", dayTitle);
+                            Cours c = response.body()[position];
+                            intent.putExtra("idcours", c.idCours.toString());
                             startActivity(intent);
                         }
                     });
@@ -100,6 +99,7 @@ public class LessonActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             //TODO : post Nouveau cours
+                            //TO FIXE : Do the post request
                             AlertDialog.Builder adb = new AlertDialog.Builder(LessonActivity.this);
                             View popView = getLayoutInflater().inflate(R.layout.pop_new_question, null);
                             final EditText question = (EditText) popView.findViewById(R.id.question);
@@ -115,10 +115,16 @@ public class LessonActivity extends AppCompatActivity {
                                     if(question.length() <= 10){
                                         Toast.makeText(LessonActivity.this,"Question non valide",Toast.LENGTH_SHORT).show();
                                     } else {
+
+
+
                                         adapter.setNotifyOnChange(true);
                                         adapter.add(question.getText().toString());
                                         Toast.makeText(LessonActivity.this,"Question envoyée !",Toast.LENGTH_SHORT).show();
                                         dialog.hide();
+
+
+
                                     }
                                 }
                             });
