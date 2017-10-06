@@ -45,7 +45,7 @@ public class LessonActivity extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.listView);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        if(false/*isPasProf*/){
+        if (false/*isPasProf*/) {
             fab.hide();
         }
 
@@ -60,7 +60,7 @@ public class LessonActivity extends AppCompatActivity {
         int idMatiere;
         try {
             idMatiere = Integer.parseInt(intent.getStringExtra("idmatiere"));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             idMatiere = -1;
         }
 
@@ -70,16 +70,13 @@ public class LessonActivity extends AppCompatActivity {
         listCours.enqueue(new Callback<Cours[]>() {
             @Override
             public void onResponse(Call<Cours[]> call, Response<Cours[]> response) {
-                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(LessonActivity.this, android.R.layout.simple_list_item_1, new ArrayList<>(Arrays.asList(values)));
                 if (response.code() == 200) {
-                    Log.i("ttt", "Res = "+response.body()[0].toString());
+                    Log.i("ttt", "Res = " + response.body()[0].toString());
 
                     //String[] values = new String[] { "17/04/12" , "18/04/12" , "19/04/12" , "20/04/12" , "21/04/12" };
 
                     String[] values = getTitleFromCours(response);
-
-
-
+                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(LessonActivity.this, android.R.layout.simple_list_item_1, new ArrayList<>(Arrays.asList(values)));
 
 
                     listView.setAdapter(adapter);
@@ -100,41 +97,42 @@ public class LessonActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             //TODO : post Nouveau cours
-                            AlertDialog.Builder adb = new AlertDialog.Builder(LessonActivity.this);
-                            View popView = getLayoutInflater().inflate(R.layout.pop_new_question, null);
-                            final EditText question = (EditText) popView.findViewById(R.id.question);
-                            Button submitButton = (Button) popView.findViewById(R.id.submit) ;
-                            adb.setView(popView);
-                            final AlertDialog dialog = adb.create();
 
-                            dialog.show();
 
-                            submitButton.setOnClickListener(new View.OnClickListener(){
-                                @Override
-                                public void onClick(View v) {
-                                    if(question.length() <= 10){
-                                        Toast.makeText(LessonActivity.this,"Question non valide",Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        adapter.setNotifyOnChange(true);
-                                        adapter.add(question.getText().toString());
-                                        Toast.makeText(LessonActivity.this,"Question envoyée !",Toast.LENGTH_SHORT).show();
-                                        dialog.hide();
-                                    }
-                                }
-                            });
-
-                            String date = new SimpleDateFormat("dd/MM/yy").format(Calendar.getInstance().getTime());
+                            final String date = new SimpleDateFormat("dd/MM/yy").format(Calendar.getInstance().getTime());
                             boolean exist = false;
-                            for(int i = 0; i<adapter.getCount();i++){
-                                if(adapter.getItem(i).toString().equals(date)){
+                            for (int i = 0; i < adapter.getCount(); i++) {
+                                if (adapter.getItem(i).toString().equals(date)) {
                                     exist = true;
                                     break;
                                 }
                             }
-                            if (!exist){
-                                adapter.setNotifyOnChange(true);
-                                adapter.add(date);
+                            if (!exist) {
+
                                 Toast.makeText(LessonActivity.this, "Cours ajouté", Toast.LENGTH_SHORT).show();
+                                AlertDialog.Builder adb = new AlertDialog.Builder(LessonActivity.this);
+                                View popView = getLayoutInflater().inflate(R.layout.pop_new_lesson, null);
+                                final EditText question = (EditText) popView.findViewById(R.id.question);
+                                Button submitButton = (Button) popView.findViewById(R.id.submit);
+                                adb.setView(popView);
+                                final AlertDialog dialog = adb.create();
+
+                                dialog.show();
+
+                                submitButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (question.length() <= 10) {
+                                            Toast.makeText(LessonActivity.this, "Notions non valides", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            adapter.setNotifyOnChange(true);
+                                            adapter.add(date);
+                                            Toast.makeText(LessonActivity.this, "Question envoyée !", Toast.LENGTH_SHORT).show();
+                                            dialog.hide();
+                                            //TODO : POST new lesson
+                                        }
+                                    }
+                                });
 
                             } else {
                                 Toast.makeText(LessonActivity.this, "Le cours existe déjà !", Toast.LENGTH_LONG).show();
@@ -144,78 +142,28 @@ public class LessonActivity extends AppCompatActivity {
 
                     //startActivity(new Intent(LessonActivity.this, DayLessonActivity.class));
 
-                } else if (response.code() == 204){
+                } else if (response.code() == 204) {
 
-                    Toast.makeText(LessonActivity.this, "Aucune leçon n'est disponible pour cette matiere", Toast.LENGTH_LONG).show();
-                    fab.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //TODO : post Nouveau cours
-                            AlertDialog.Builder adb = new AlertDialog.Builder(LessonActivity.this);
-                            View popView = getLayoutInflater().inflate(R.layout.pop_new_question, null);
-                            final EditText question = (EditText) popView.findViewById(R.id.question);
-                            Button submitButton = (Button) popView.findViewById(R.id.submit) ;
-                            adb.setView(popView);
-                            final AlertDialog dialog = adb.create();
-
-                            dialog.show();
-
-                            submitButton.setOnClickListener(new View.OnClickListener(){
-                                @Override
-                                public void onClick(View v) {
-                                    if(question.length() <= 10){
-                                        Toast.makeText(LessonActivity.this,"Question non valide",Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        adapter.setNotifyOnChange(true);
-                                        adapter.add(question.getText().toString());
-                                        Toast.makeText(LessonActivity.this,"Question envoyée !",Toast.LENGTH_SHORT).show();
-                                        dialog.hide();
-                                    }
-                                }
-                            });
-
-                            String date = new SimpleDateFormat("dd/MM/yy").format(Calendar.getInstance().getTime());
-                            boolean exist = false;
-                            for(int i = 0; i<adapter.getCount();i++){
-                                if(adapter.getItem(i).toString().equals(date)){
-                                    exist = true;
-                                    break;
-                                }
-                            }
-                            if (!exist){
-                                adapter.setNotifyOnChange(true);
-                                adapter.add(date);
-                                Toast.makeText(LessonActivity.this, "Cours ajouté", Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                Toast.makeText(LessonActivity.this, "Le cours existe déjà !", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(LessonActivity.this, "Un problème est survenu", Toast.LENGTH_LONG).show();
                 }
+
 
             }
 
             @Override
             public void onFailure(Call<Cours[]> call, Throwable t) {
-                Log.i("ttt", "Fail = "+t.toString());
-                Toast.makeText(LessonActivity.this, "Problème de serveur",Toast.LENGTH_LONG).show();
+                Log.i("ttt", "Fail = " + t.toString());
+                Toast.makeText(LessonActivity.this, "Problème de serveur", Toast.LENGTH_LONG).show();
             }
+
         });
-
-
 
 
     }
 
-    public String[] getTitleFromCours(Response<Cours[]> response)
-    {
+    public String[] getTitleFromCours(Response<Cours[]> response) {
         String[] values = new String[response.body().length];
         int index = 0;
-        for ( Cours c : response.body())
-        {
+        for (Cours c : response.body()) {
             values[index] = c.Titre;
             index++;
         }

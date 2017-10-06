@@ -41,6 +41,9 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     testCompile 'junit:junit:4.12'
+
+    compile 'io.realm:android-adapters:1.4.0'
+
 }
 
 realm {
