@@ -214,13 +214,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         finish();
                         startActivity(new Intent(LoginActivity.this, SubjectsActivity.class));
                     }
+                    showProgress(false);
                 }
 
                 @Override
                 public void onFailure(Call<User[]> call, Throwable t) {
                     Log.i("ttt", "Fail = "+t.toString());
                     showProgress(false);
-                    attemptLogin();
                 }
             });
         }
