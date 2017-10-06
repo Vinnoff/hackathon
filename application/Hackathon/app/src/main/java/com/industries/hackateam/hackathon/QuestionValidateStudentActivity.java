@@ -2,6 +2,7 @@ package com.industries.hackateam.hackathon;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,13 +24,16 @@ public class QuestionValidateStudentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+
         setContentView(R.layout.activity_question_validate_student);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
         this.setTitle("Question Validée Student");
         TextView questionText = (TextView) this.findViewById(R.id.questionText);
-        questionText.setText("Qui est Vador ?");
+        questionText.setText(intent.getStringExtra("question"));
         ListView listResponse = (ListView) this.findViewById(R.id.listResponse);
         String[] listValue = new String[] {"Response num 1", "Response num 2", "Response num 3"};
 

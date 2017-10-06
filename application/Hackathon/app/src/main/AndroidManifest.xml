@@ -51,7 +51,6 @@
             android:name=".QuestionNoValidateStudentActivity"
             android:label="@string/title_activity_question_no_validate_student"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
     </application>
 
 </manifest>

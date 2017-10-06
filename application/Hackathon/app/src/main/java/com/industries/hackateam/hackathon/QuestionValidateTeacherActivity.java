@@ -1,5 +1,6 @@
 package com.industries.hackateam.hackathon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,13 +14,16 @@ public class QuestionValidateTeacherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+
         setContentView(R.layout.activity_question_validate_teacher);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
         this.setTitle("Question Validée");
         TextView questionText = (TextView) this.findViewById(R.id.responseText);
-        questionText.setText("Qui est Toto ?");
+        questionText.setText(intent.getStringExtra("question"));
         ListView listResponse = (ListView) this.findViewById(R.id.listRespond);
         String[] listValue = new String[] { "Reponse1", "Reponse2", "Reponse3" };
 

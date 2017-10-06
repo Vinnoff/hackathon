@@ -69,6 +69,7 @@ public class QuestionFragment extends Fragment{
                         intent = new Intent(getContext(), QuestionNoValidateStudentActivity.class);
                     }
                 }
+                intent.putExtra("question", listView.getItemAtPosition(position).toString());
                 startActivity(intent);
             }
         });
