@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,9 +110,8 @@ public class LessonActivity extends AppCompatActivity {
                             }
                             if (!exist) {
 
-                                Toast.makeText(LessonActivity.this, "Cours ajouté", Toast.LENGTH_SHORT).show();
                                 AlertDialog.Builder adb = new AlertDialog.Builder(LessonActivity.this);
-                                View popView = getLayoutInflater().inflate(R.layout.pop_new_lesson, null);
+                                final View popView = getLayoutInflater().inflate(R.layout.pop_new_lesson, null);
                                 final EditText question = (EditText) popView.findViewById(R.id.question);
                                 Button submitButton = (Button) popView.findViewById(R.id.submit);
                                 adb.setView(popView);
@@ -127,9 +127,47 @@ public class LessonActivity extends AppCompatActivity {
                                         } else {
                                             adapter.setNotifyOnChange(true);
                                             adapter.add(date);
-                                            Toast.makeText(LessonActivity.this, "Question envoyée !", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LessonActivity.this, "Cours ajouté", Toast.LENGTH_SHORT).show();
                                             dialog.hide();
                                             //TODO : POST new lesson
+
+                                            Retrofit retrofit = new Retrofit.Builder()
+                                                    .baseUrl(getString(R.string.server_url))
+                                                    .addConverterFactory(GsonConverterFactory.create())
+                                                    .build();
+
+                                            ApiPerso service = retrofit.create(ApiPerso.class);
+                                            EditText editText = (EditText) popView.findViewById(R.id.question);
+
+                                            Map<String, Object> map = new HashMap<>();
+                                            map.put("idmatiere", getTitle());
+                                            map.put("description", editText.getText().toString());
+                                            map.put("titre", date);
+                                            Call<Cours[]> pers = service.createCours(map);
+
+                                            pers.enqueue(new Callback<Cours[]>() {
+                                                @Override
+                                                public void onResponse(Call<Cours[]> call, Response<Cours[]> response) {
+                                                    if (response.code() == 200) {
+                                                        Cours coursResponse = response.body()[0];
+                                                        Log.i("ttt", "Res = "+coursResponse.toString());
+                                                        finish();
+
+                                                    } else {
+                                                        Toast.makeText(LessonActivity.this, "Uqetherg", Toast.LENGTH_LONG).show();
+                                                    }
+
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Cours[]> call, Throwable t) {
+                                                    Log.i("ttt", "Fail = "+t.toString());
+                                                    Toast.makeText(LessonActivity.this, "Problème de serveur",Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+
+
+
                                         }
                                     }
                                 });
