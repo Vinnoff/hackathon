@@ -25,5 +25,6 @@
     <string name="title_activity_question_validate_student">QuestionValidateStudentActivity</string>
     <string name="title_activity_question_no_validate_student">QuestionNoValidateStudentActivity</string>
     <string name="title_activity_pop_new_question">NewQuestionPop</string>
-
+    <string name="title_activity_login_test">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
 </resources>
