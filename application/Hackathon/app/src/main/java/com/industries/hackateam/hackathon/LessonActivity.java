@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -55,6 +56,29 @@ public class LessonActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO : post Nouveau cours
+                AlertDialog.Builder adb = new AlertDialog.Builder(LessonActivity.this);
+                View popView = getLayoutInflater().inflate(R.layout.pop_new_question, null);
+                final EditText question = (EditText) popView.findViewById(R.id.question);
+                Button submitButton = (Button) popView.findViewById(R.id.submit) ;
+                adb.setView(popView);
+                final AlertDialog dialog = adb.create();
+
+                dialog.show();
+
+                submitButton.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        if(question.length() <= 10){
+                            Toast.makeText(LessonActivity.this,"Question non valide",Toast.LENGTH_SHORT).show();
+                        } else {
+                            adapter.setNotifyOnChange(true);
+                            adapter.add(question.getText().toString());
+                            Toast.makeText(LessonActivity.this,"Question envoyée !",Toast.LENGTH_SHORT).show();
+                            dialog.hide();
+                        }
+                    }
+                });
+
                 String date = new SimpleDateFormat("dd/MM/yy").format(Calendar.getInstance().getTime());
                 boolean exist = false;
                 for(int i = 0; i<adapter.getCount();i++){
