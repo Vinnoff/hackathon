@@ -192,6 +192,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://mocnodeserv.hopto.org:80")
                     .addConverterFactory(GsonConverterFactory.create())
@@ -203,18 +204,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             map.put("mail", email);
             map.put("mdp", password);
             Call<User[]> pers = service.getUser(map);
+
             pers.enqueue(new Callback<User[]>() {
                 @Override
                 public void onResponse(Call<User[]> call, Response<User[]> response) {
-                    Log.i("ttt", "Res = "+response.body()[0].toString());
-                    startActivity(new Intent(LoginActivity.this, SubjectsActivity.class));
-                    finish();
+                    if (response.code() == 200) {
+                        Log.i("ttt", "Res = "+response.body()[0].toString());
+                        showProgress(false);
+                        finish();
+                        startActivity(new Intent(LoginActivity.this, SubjectsActivity.class));
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<User[]> call, Throwable t) {
                     Log.i("ttt", "Fail = "+t.toString());
                     showProgress(false);
+                    attemptLogin();
                 }
             });
         }
