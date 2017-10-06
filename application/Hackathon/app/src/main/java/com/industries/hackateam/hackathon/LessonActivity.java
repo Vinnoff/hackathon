@@ -56,30 +56,9 @@ public class LessonActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO : post Nouveau cours
-                AlertDialog.Builder adb = new AlertDialog.Builder(LessonActivity.this);
-                View popView = getLayoutInflater().inflate(R.layout.pop_new_question, null);
-                final EditText question = (EditText) popView.findViewById(R.id.question);
-                Button submitButton = (Button) popView.findViewById(R.id.submit) ;
-                adb.setView(popView);
-                final AlertDialog dialog = adb.create();
 
-                dialog.show();
 
-                submitButton.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        if(question.length() <= 10){
-                            Toast.makeText(LessonActivity.this,"Question non valide",Toast.LENGTH_SHORT).show();
-                        } else {
-                            adapter.setNotifyOnChange(true);
-                            adapter.add(question.getText().toString());
-                            Toast.makeText(LessonActivity.this,"Question envoyée !",Toast.LENGTH_SHORT).show();
-                            dialog.hide();
-                        }
-                    }
-                });
-
-                String date = new SimpleDateFormat("dd/MM/yy").format(Calendar.getInstance().getTime());
+                final String date = new SimpleDateFormat("dd/MM/yy").format(Calendar.getInstance().getTime());
                 boolean exist = false;
                 for(int i = 0; i<adapter.getCount();i++){
                     if(adapter.getItem(i).toString().equals(date)){
@@ -88,9 +67,31 @@ public class LessonActivity extends AppCompatActivity {
                     }
                 }
                 if (!exist){
-                    adapter.setNotifyOnChange(true);
-                    adapter.add(date);
+
                     Toast.makeText(LessonActivity.this, "Cours ajouté", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder adb = new AlertDialog.Builder(LessonActivity.this);
+                    View popView = getLayoutInflater().inflate(R.layout.pop_new_lesson, null);
+                    final EditText question = (EditText) popView.findViewById(R.id.question);
+                    Button submitButton = (Button) popView.findViewById(R.id.submit) ;
+                    adb.setView(popView);
+                    final AlertDialog dialog = adb.create();
+
+                    dialog.show();
+
+                    submitButton.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v) {
+                            if(question.length() <= 10){
+                                Toast.makeText(LessonActivity.this,"Notions non valides",Toast.LENGTH_SHORT).show();
+                            } else {
+                                adapter.setNotifyOnChange(true);
+                                adapter.add(date);
+                                Toast.makeText(LessonActivity.this,"Question envoyée !",Toast.LENGTH_SHORT).show();
+                                dialog.hide();
+                                //TODO : POST new lesson
+                            }
+                        }
+                    });
 
                 } else {
                     Toast.makeText(LessonActivity.this, "Le cours existe déjà !", Toast.LENGTH_LONG).show();
