@@ -28,6 +28,7 @@ public class SubjectsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Matières");
         setContentView(R.layout.activity_subjects2);
 
         final ListView listView = (ListView) findViewById(R.id.listView);
