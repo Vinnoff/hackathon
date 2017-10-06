@@ -37,6 +37,10 @@ public class QuestionValidateStudentActivity extends AppCompatActivity {
         ListView listResponse = (ListView) this.findViewById(R.id.listResponse);
         String[] listValue = new String[] {"Response num 1", "Response num 2", "Response num 3"};
 
+
+
+
+
         AdapterValidateStudent adapter = new AdapterValidateStudent(this, listValue);
 
         listResponse.setAdapter(adapter);
